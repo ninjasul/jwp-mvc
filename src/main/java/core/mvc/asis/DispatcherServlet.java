@@ -1,31 +1,20 @@
 package core.mvc.asis;
 
-import com.google.common.collect.Maps;
 import core.mvc.JspView;
 import core.mvc.ModelAndView;
 import core.mvc.View;
 import core.mvc.tobe.AnnotationHandlerMapping;
-import core.mvc.tobe.HandlerExecution;
 import core.mvc.tobe.ModelAndViewGettable;
-import core.mvc.tobe.handler.ControllerHandler;
 import core.mvc.tobe.handler.Handler;
-import core.mvc.tobe.handler.HandlerExecutionHandler;
-import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet implements ModelAndViewGettable {

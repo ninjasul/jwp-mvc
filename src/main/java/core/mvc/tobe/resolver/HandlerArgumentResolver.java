@@ -25,7 +25,7 @@ public class HandlerArgumentResolver {
         new CustomArgumentResolver()
     );
 
-    public static Object[] resolveParameters(Method method, HttpServletRequest request, HttpServletResponse response) {
+    public static Object[] resolveParameter(Method method, HttpServletRequest request, HttpServletResponse response) {
         Parameter[] parameters = method.getParameters();
         String[] parameterNames = nameDiscoverer.getParameterNames(method);
         Map<String, String> pathVariables = PathVariableUtil.getPathVariables(method, request.getRequestURI());
@@ -39,7 +39,7 @@ public class HandlerArgumentResolver {
             String parameterName = parameterNames[i];
 
             MethodParameter methodParameter = MethodParameter.from(parameterName, parameter, method, pathVariables);
-            Object parameterValue = resolveParameters(methodParameter, request, response);
+            Object parameterValue = resolveParameter(methodParameter, request, response);
             arguments.add(parameterValue);
 
             log.debug("parameterType: {}, parameterName: {}, parameterValue: {}", parameterName, type, parameterValue);
@@ -48,7 +48,7 @@ public class HandlerArgumentResolver {
         return arguments.toArray(new Object[0]);
     }
 
-    private static Object resolveParameters(MethodParameter methodParameter, HttpServletRequest request, HttpServletResponse response) {
+    private static Object resolveParameter(MethodParameter methodParameter, HttpServletRequest request, HttpServletResponse response) {
         return handlerArgumentResolver.stream()
             .filter(resolver -> resolver.supportsParameter(methodParameter))
             .peek(resolver -> log.debug("found resolver: {}", resolver.getClass()))
