@@ -46,7 +46,6 @@ public class CustomArgumentResolver extends AbstractHandlerMethodArgumentResolve
 
         return Arrays.stream(fields)
             .map(field -> resolveArgument(request.getParameter(field.getName()), field.getType()))
-            .filter(Objects::nonNull)
             .toArray(Object[]::new);
     }
 }
